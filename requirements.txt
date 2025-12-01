@@ -1,4 +1,7 @@
-pytest
+python-dotenv
+requests
+pydantic>=1.10
 prometheus_client
 opentelemetry-api
-requests
+flask
+pytest

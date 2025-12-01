@@ -1,23 +1,35 @@
-# MSMe Agentic AI — ADK Prototype
+# Agentic AI for MSME Inventory (Google ADK)
 
-A runnable prototype and reference implementation of an **Agentic AI** system (ADK-style) designed to improve business workflows for small-to-medium retail MSMEs.
-This project demonstrates key course concepts including multi-agent systems, LLM-powered agents, tools (custom & OpenAPI), long-running operations (pause/resume), sessions & memory, context engineering, observability, agent evaluation, the A2A protocol, and deployment patterns.
+This repository contains a full, submission-ready Agentic AI project built for the Google ADK coursework.
+It implements a multi-agent system that optimizes inventory workflows for MSMEs using a Gemini-enabled ForecastAgent,
+ReorderAgent, OrderAgent (long-running), OpsAgent, tools (MCP-style Inventory, Supplier OpenAPI), sessions, memory, and observability.
 
-## Quickstart (local dev)
-
-1. Create a virtual environment and install dependencies:
+## Quickstart (local)
+1. Create venv and install deps:
    ```bash
    python -m venv .venv
    source .venv/bin/activate
    pip install -r requirements.txt
    ```
-
-2. Run the sample main to see a demo workflow:
+2. (Optional) Provide Gemini API key in `.env`:
    ```bash
-   python -m msme_agent.main
+   LLM_PROVIDER=gemini
+   GEMINI_API_KEY=YOUR_KEY_HERE
+   GEMINI_MODEL=models/text-bison-001
+   GEMINI_API_BASE=https://generativelanguage.googleapis.com/v1beta2
    ```
-
-3. Run tests:
+3. Start mock supplier (separate terminal):
+   ```bash
+   python mock_supplier.py
+   ```
+4. Run demo:
+   ```bash
+   python -m msme_adk.main_gemini
+   ```
+5. Run tests:
    ```bash
    pytest -q
    ```
+
+## Repo layout
+See `flow_adk_web.png` for architecture diagram (replace placeholder with your image).
