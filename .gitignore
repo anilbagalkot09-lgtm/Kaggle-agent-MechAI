@@ -1,0 +1,54 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Logs & temp files
+*.log
+*.tmp
+*.temp
+*.DS_Store
+
+# IDE / Editor settings
+.vscode/
+.idea/
+
+# Byte-compiled / cache
+.cache/
+.pytest_cache/
+
+# ---- ADK / Agent Projects ----
+# Sessions / memory dumps
+sessions/
+memory/
+*.db
+
+# Local tools / configs
+config/local.json
+secrets.json
+
+# ---- Images / Output ----
+# Keep repo clean; remove if you want images committed
+*.png
+*.jpg
+*.jpeg
+
+# ---- OS-specific ----
+Thumbs.db
