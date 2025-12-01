@@ -1,4 +1,10 @@
+import sys
+import os
 import asyncio
+
+# Ensure project root is on sys.path so tests can import the package directly
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from msme_adk.core.a2a import A2AMessage, A2ARouter
 from msme_adk.core.memory_bank import MemoryBank
 from msme_adk.agents.forecast_agent_gemini import ForecastAgent

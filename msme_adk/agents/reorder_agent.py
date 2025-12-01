@@ -1,4 +1,5 @@
 import math
+import inspect
 from ..core.a2a import A2AMessage
 from ..core.observability import log
 
@@ -18,7 +19,10 @@ class ReorderAgent:
             return
         sku = msg.payload.get('sku')
         forecast = msg.payload.get('forecast', {})
-        sku_rec = await self.inventory.read_sku(sku) or {'qty':0, 'lead_time_days':7, 'reorder_point':10}
+        # support both sync and async inventory implementations
+        maybe = self.inventory.read_sku(sku)
+        sku_rec = await maybe if inspect.isawaitable(maybe) else maybe
+        sku_rec = sku_rec or {'qty':0, 'lead_time_days':7, 'reorder_point':10}
         ad = avg_daily(forecast)
         reorder_point = math.ceil((sku_rec.get('lead_time_days',7) * ad) + 2)
         order_qty = max(reorder_point - sku_rec.get('qty',0), 0)

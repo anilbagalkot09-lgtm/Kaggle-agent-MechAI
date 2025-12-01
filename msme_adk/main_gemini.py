@@ -1,14 +1,34 @@
+import sys
+import os
 import asyncio
-from msme_adk.core.a2a import A2AMessage, A2ARouter
-from msme_adk.core.session_service import InMemorySessionService
-from msme_adk.core.memory_bank import MemoryBank
-from msme_adk.tools.inventory_mcp import InventoryMCP
-from msme_adk.tools.supplier_openapi_tool import SupplierOpenAPITool
-from msme_adk.agents.forecast_agent_gemini import ForecastAgent
-from msme_adk.agents.reorder_agent import ReorderAgent
-from msme_adk.agents.order_agent import OrderAgent
-from msme_adk.agents.ops_agent import OpsAgent
-from msme_adk.core.observability import log
+
+# Try absolute package imports first; if that fails (script run without package
+# context), add repo root to `sys.path` so `msme_adk` can be imported.
+try:
+    from msme_adk.core.a2a import A2AMessage, A2ARouter
+    from msme_adk.core.session_service import InMemorySessionService
+    from msme_adk.core.memory_bank import MemoryBank
+    from msme_adk.tools.inventory_mcp import InventoryMCP
+    from msme_adk.tools.supplier_openapi_tool import SupplierOpenAPITool
+    from msme_adk.agents.forecast_agent_gemini import ForecastAgent
+    from msme_adk.agents.reorder_agent import ReorderAgent
+    from msme_adk.agents.order_agent import OrderAgent
+    from msme_adk.agents.ops_agent import OpsAgent
+    from msme_adk.core.observability import log
+except ModuleNotFoundError:
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    if repo_root not in sys.path:
+        sys.path.insert(0, repo_root)
+    from msme_adk.core.a2a import A2AMessage, A2ARouter
+    from msme_adk.core.session_service import InMemorySessionService
+    from msme_adk.core.memory_bank import MemoryBank
+    from msme_adk.tools.inventory_mcp import InventoryMCP
+    from msme_adk.tools.supplier_openapi_tool import SupplierOpenAPITool
+    from msme_adk.agents.forecast_agent_gemini import ForecastAgent
+    from msme_adk.agents.reorder_agent import ReorderAgent
+    from msme_adk.agents.order_agent import OrderAgent
+    from msme_adk.agents.ops_agent import OpsAgent
+    from msme_adk.core.observability import log
 
 async def run_demo():
     router = A2ARouter()

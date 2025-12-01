@@ -1,14 +1,33 @@
 """Gemini-enabled ForecastAgent with context compaction, hybrid ML+LLM, guardrails, and memory writes."""
 import asyncio, json, time
 from typing import List, Dict, Any, Optional
-from pydantic import BaseModel, conlist, ValidationError
-from ..core.a2a import A2AMessage
-from ..core.llm_client import LLMClient
-from ..core.observability import log, LLM_CALLS, LLM_FAILS
-from ..core.memory_bank import MemoryBank
+import pydantic as _pydantic
+from pydantic import BaseModel, ValidationError, Field
+
+# compatibility: support both pydantic v1 (conlist) and v2 (Field with min_items)
+_pyd_ver = tuple(int(x) for x in _pydantic.__version__.split('+')[0].split('.'))
+if _pyd_ver[0] < 2:
+    from pydantic import conlist
+    ForecastList = conlist(float, min_items=1)
+    _forecast_field_default = ...
+else:
+    ForecastList = List[float]
+    _forecast_field_default = Field(..., min_items=1)
+
+try:
+    from ..core.a2a import A2AMessage
+    from ..core.llm_client import LLMClient
+    from ..core.observability import log, LLM_CALLS, LLM_FAILS
+    from ..core.memory_bank import MemoryBank
+except (ImportError, ValueError):
+    from msme_adk.core.a2a import A2AMessage
+    from msme_adk.core.llm_client import LLMClient
+    from msme_adk.core.observability import log, LLM_CALLS, LLM_FAILS
+    from msme_adk.core.memory_bank import MemoryBank
+
 
 class ForecastSchema(BaseModel):
-    forecast: conlist(float, min_items=1)
+    forecast: ForecastList = _forecast_field_default
     analysis: str
     seasonality: Optional[Dict[str, Any]] = None
     metadata: Optional[Dict[str, Any]] = None
