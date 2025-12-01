@@ -1,6 +1,49 @@
+# Python virtual environments
 .venv/
+venv/
+env/
+
+# Byte-compiled / cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+*.egg
+
+# pytest
+.pytest_cache/
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables / secrets
 .env
+.env.*
+secrets.json
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Logs and runtime files
+*.log
+*.sqlite3
+
+# Archives
 *.zip
+
+# Temporary files
+*.tmp
+*.swp
+~*
